@@ -1,10 +1,305 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>这是个标题</title>
-    </head>
-    <body>
-        <h1>这是一个一个简单的HTML</h1>
-        <p>Hello World！</p>
-    </body>
+<!--1.初始页面-->
+<!--    Type VARCHAR(100),-->
+<!--    Size VARCHAR(100),-->
+<!--    Use_Purpose VARCHAR(100),-->
+<!--    Powertrain VARCHAR(100),-->
+<!--    Fuel_Type VARCHAR(100),-->
+<!--    Model_Year varchar(100),-->
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ramble // HTML Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap framework main css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- This core.css file contents all plugins css file. -->
+    <link rel="stylesheet" href="css/core.css">
+    <!-- Template shortcodes/elements style -->
+    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <!-- Template main style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- User style -->
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="newstyle.css">
+    <!-- Modernizr JS -->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <!-- Custom style for background image and text -->
+    <!-- Custom style for background image and text -->
+    <style>
+        .slider__inner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1.5)), url('images/bg/2.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+        .steps {
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .step {
+            display: block;
+            width: 20%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: gray;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .current-step {
+            background-color: green;
+            font-weight: bold;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper fixed-newslatter">
+        <!-- Start Header Style -->
+        <header id="header" class="header">
+            <div id="sticky-header-with-topbar" class="container-fluid hidden-xs sticky__header">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-sm-12">
+                        <div class="logo">
+                            <a href="index.html"><img src="images/logo/ramble.png" alt="logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-lg-8">
+                        <div class="header__bottom">
+                            <div class="mainmenu__area">
+                                <nav class="mainmenu__nav">
+                                    <ul class="main__menu">
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="about-us.html">About</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End Header Style -->
+        <div class="slider__inner">
+            <h2 class="wow">Welcome to our new energy vehicle Cost assessment platform!</h2>
+            <div class="steps">
+                <div class="step current-step" onclick="location.href='index.html'">Step 1: General Information</div>
+
+                <div class="step" onclick="location.href='Energy_Factor_Value.html'">Step 2:Energy Factor Value </div>
+                <div class="step" onclick="location.href='electric.html'">Step 3: Electric Driving Range</div>
+                <div class="step" onclick="location.href='Financing.html'">Step 4: Financing Loan Rate</div>
+                <div class="step" onclick="location.href='Government.html'">Step 5: Government Subsidies</div>
+                <div class="step" onclick="location.href='Vehicle.html'">Step 6: Vehicle Purchase Price</div>
+                <div class="step" onclick="location.href='Condition.html'">Step 7: Condition Trend</div>
+            </div>
+        </div>
+        <!-- Start Select Option -->
+        <div class="select__option__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <form id="searchForm" action="1.php" method="post">
+                            <div class="select__option__inner">
+                                <div class="single__option">
+                                    Type:
+                                    <select id="type" name="type" onchange="updateSizeOptions()" required>
+                                        <option value="Bus" selected>Bus</option>
+                                        <option value="Truck">Truck</option>
+                                    </select>
+                                </div>
+                                <div class="single__option">
+                                    Size:
+                                    <select id="size" name="size" onchange="updateUsePurposeOptions()" required>
+                                        <option value="M1&M2" selected>M1&M2</option>
+                                        <option value="M3">M3</option>
+                                    </select>
+                                </div>
+                                <div class="single__option">
+                                    Use Purpose:
+                                    <select id="usePurpose" name="use_purpose" required>
+                                        <option value="MiniBus" >MiniBus</option>
+                                        <option value="Midsize Bus" selected>Midsize Bus</option>
+                                        <option value="Intracity Transit">Intracity Transit</option>
+                                        <option value="Intercity Bus">Intercity Bus</option>
+                                        <option value="School Bus">School Bus</option>
+                                    </select>
+                                </div>
+                                <div class="single__option">
+                                    Powertrain:
+                                    <select id="powertrain" name="powertrain" onchange="updateFuelTypeOptions()" required>
+                                        <option value="BEV" selected>BEV</option>
+                                        <option value="CI">CI</option>
+                                        <option value="CNG_LPG">CNG_LPG</option>
+                                        <option value="FCEV">FCEV</option>
+                                        <option value="HEV">HEV</option>
+                                        <option value="PHEV_EREV">PHEV_EREV</option>
+                                        <option value="SI">SI</option>
+                                    </select>
+                                </div>
+                                <div class="single__option">
+                                    Fuel Type:
+                                    <select id="fuelType" name="fuel_type" required>
+                                        <option value="Electricity" selected>Electricity</option>
+                                    </select>
+                                </div>
+                                <div class="single__option">
+                                    Model Year:
+                                    <select id="modelYear" name="model_year" required>
+                                        <option value="2020" selected>2020</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2030">2030</option>
+                                        <option value="2035">2035</option>
+                                        <option value="2040">2040</option>
+                                    </select>
+                                </div>
+                                <div class="single__option">
+                                    <button type="submit" class="btn__search" onclick="handleFormSubmit(event, 'general_info')">Search Vehicles</button>
+                                </div>
+                                <input type="hidden" name="form_type" value="general_info">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script>
+        const sizeOptions = {
+            Bus: ["M1&M2", "M3"],
+            Truck: ["Heavy_duty", "Mid_duty", "Light_duty", "Mini_duty", "Special_purpose Vehicle"]
+        };
+
+        const usePurposeOptions = {
+            "M1&M2": ["MiniBus", "Midsize Bus", "Intracity Transit", "Intercity Bus", "School Bus"],
+            "M3": ["Intracity Transit", "Intercity Bus", "School Bus"],
+            "Heavy_duty": ["Delivery", "Trailer Truck"],
+            "Mid_duty": ["Delivery", "Trailer Truck"],
+            "Light_duty": [],
+            "Mini_duty": [],
+            "Special_purpose Vehicle": ["Dump Truck", "Specialized Transporter", "Pickup"]
+        };
+        
+        const fuelTypeOptions = {
+            "BEV":["Electricity"],
+            "CI":["Diesel(#0)"],
+            "CNG_LPG":["CNG_LPG"],
+            "FCEV":["Hydrogen"],
+            "HEV":["CNG_LPG","Diesel(#0)"],
+            "PHEV_EREV":["CNG+Electricity","Diesel+Electricity"],
+            "SI":["Gasoline(#92)","Gasoline(#98)"]
+            
+        };
+
+        function updateSizeOptions() {
+            const type = document.getElementById("type").value;
+            const sizeSelect = document.getElementById("size");
+            sizeSelect.innerHTML = '';
+
+            if (type) {
+                sizeOptions[type].forEach(size => {
+                    const option = document.createElement("option");
+                    option.value = size;
+                    option.text = size;
+                    sizeSelect.appendChild(option);
+                });
+            }
+            updateUsePurposeOptions();
+        }
+
+        function updateUsePurposeOptions() {
+            const size = document.getElementById("size").value;
+            const usePurposeSelect = document.getElementById("usePurpose");
+            usePurposeSelect.innerHTML = '';
+
+            if (size && usePurposeOptions[size]) {
+                usePurposeOptions[size].forEach(use => {
+                    const option = document.createElement("option");
+                    option.value = use;
+                    option.text = use;
+                    usePurposeSelect.appendChild(option);
+                });
+            }
+        }
+        
+        function updateFuelTypeOptions() {
+            const powertrain = document.getElementById("powertrain").value;
+            const fuelTypeSelect = document.getElementById("fuelType");
+            fuelTypeSelect.innerHTML = '<option value="">Fuel Type</option>';
+
+            if (powertrain && fuelTypeOptions[powertrain]) {
+                fuelTypeOptions[powertrain].forEach(fuel => {
+                    const option = document.createElement("option");
+                    option.value = fuel;
+                    option.text = fuel;
+                    fuelTypeSelect.appendChild(option);
+                });
+            }
+        }
+
+        function handleFormSubmit(event, formType) {
+            event.preventDefault(); // 阻止表单的默认提交行为
+
+            const form = document.getElementById('searchForm');
+            const formData = new FormData(form);
+            formData.append('form_type', formType);
+
+            fetch('1.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                sessionStorage.setItem('formData', JSON.stringify(Object.fromEntries(formData.entries())));
+                window.location.href = 'Energy_Factor_Value.html';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // 设置默认值
+            document.getElementById("type").value = "Bus";
+            updateSizeOptions();
+            document.getElementById("size").value = "M1&M2";
+            updateUsePurposeOptions();
+            document.getElementById("usePurpose").value = "MiniBus";
+            document.getElementById("powertrain").value = "BEV";
+            document.getElementById("fuelType").value = "Electricity";
+            document.getElementById("modelYear").value = "2020";
+        });
+    </script>
+</body>
 </html>
