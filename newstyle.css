@@ -1,0 +1,76 @@
+
+            /* 设置导航链接的默认样式 */
+.main__menu a {
+    font-size: 50px; /* 默认字体大小 */
+    color: black; /* 默认字体颜色 */
+    text-decoration: none; /* 移除默认下划线 */
+}
+        /* 添加导航栏膜效果 */
+.header__bottom {
+    padding: 10px; /* 添加一些内边距 */
+    margin-bottom: 20px; /* 底部间距 */
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+.header__bottom:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* 黑色透明膜 */
+}
+.logo img {
+    margin-top: -50px; /* 向上偏移5像素 */
+}        
+.main__menu a[href="index.html"] {
+    font-size: 20px; /* home 的字体大小 */
+    color: white; /* home 的字体颜色 */
+    line-height: 100px; /* 设置行高，垂直居中 */
+}
+
+.main__menu a[href="about-us.html"] {
+    font-size: 20px; /* about 的字体大小 */
+    color: white; /* about 的字体颜色 */
+    line-height: 100px; /* 设置行高，垂直居中 */
+}
+        
+.slider__inner {
+    text-align: center;
+    padding: 50px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+
+}
+
+.slider__inner h1,
+.slider__inner h2 {
+    color:white;
+    position: relative;
+    z-index: 2;
+    font-size: 36px; /* Increase font size */
+    font-weight: bold;
+    margin-top: 100px; /* Adjust vertical position */
+}
+/* Adjustments to the select option section */
+.select__option__wrap {
+    width: 100%;
+    margin: 0 auto;
+    background: none; /* Remove background */
+}
+
+.select__option__inner {
+    background-color: rgba(0, 0, 0, 0.4); /* Adjust transparency */
+    padding: 50px; /* Reduce padding */
+    margin-top: -50px; /* Match the padding of the slider */
+    position: relative;
+    z-index: 1;
+    display: flex; /* 将子元素排列在同一行上 */
+}
+
+.single__option select,
+.single__option input {
+    width: 130px; /* 设置每个输入框的宽度 */
+    margin-right: 10px; /* 添加一些右边距 */
+    font-size: 13px; /* Decrease font size */
+}
+        
+.btn__search {
+    width: 130px; /* 设置按钮宽度 */
+}
