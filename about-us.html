@@ -1,0 +1,165 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ramble // HTML Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap framework main css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- This core.css file contents all plugins css file. -->
+    <link rel="stylesheet" href="css/core.css">
+    <!-- Template shortcodes/elements style -->
+    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <!-- Template main style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- User style -->
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="newstyle.css">
+    <!-- Modernizr JS -->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <!-- Custom style for background image and text -->
+    <style>
+        .slider__inner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1.5)), url('images/bg/2.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+        .welcome-text {
+            color: white;
+            text-align: center;
+            font-size: 18px; /* 调整字体大小 */
+            line-height: 1.6; /* 调整行高以增加可读性 */
+        }
+        .welcome-paragraph {
+            color: white;
+            text-align: center;
+            font-size: 18px; /* 调整字体大小 */
+            line-height: 1.6; /* 调整行高以增加可读性 */
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->  
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper fixed-newslatter">
+        <!-- Start Header Style -->
+        <header id="header" class="header">
+            <div id="sticky-header-with-topbar" class="container-fluid hidden-xs sticky__header">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-sm-12">
+                        <div class="logo">
+                            <a href="index.html"><img src="images/logo/ramble.png" alt="logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-lg-8">
+                        <div class="header__bottom">
+                            <div class="mainmenu__area">
+                                <nav class="mainmenu__nav">
+                                    <ul class="main__menu">
+                                        <li class="drop"><a href="index.html">home</a>
+                                        </li>
+                                        <li><a href="about-us.html">about</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End Header Style -->
+        <div class="slider__inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-16 col-sm-12 col-xs-12">
+                        <div class="htc__about__details pt-100 pb-70 welcome-text">
+                            <div class="htc__about__inner">
+                                <h2>about <span class="text-theme">us</span></h2>
+                                <p class="welcome-paragraph">欢迎来到我们的新能源汽车成本评估平台！该网站基于徐浩等人的论文《评估中国公交车和卡车的当前感拥有成本》。我们的平台提供了一个直观的工具，允许用户输入车辆类型、燃料类型、使用目的和年份等信息，来查询详细的拥有成本数据。数据包括燃料消耗率、燃料价格、税费和保险等，并根据乐观、中性和悲观三种情景进行预测。该平台旨在帮助用户更好地了解和评估新能源汽车的经济可行性，支持更明智的购车决策。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+        <!-- Start Bradcaump area -->
+    <!--    <div class="slider__inner">-->
+    <!--        <div class="ht__bradcaump__wrap">-->
+    <!--            <div class="container">-->
+    <!--                <div class="row">-->
+    <!--                    <div class="col-xs-12">-->
+    <!--                        <div class="bradcaump__inner text-center">-->
+    <!--                            <h2 class="bradcaump-title">About US</h2>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+        <!-- End Bradcaump area -->
+        <!-- Start About Area -->
+    <!--    <section class="htc__about__area bg-6">-->
+    <!--        <div class="container">-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">-->
+    <!--                    <div class="htc__about__details pt-100 pb-70">-->
+    <!--                        <div class="htc__about__inner">-->
+    <!--                            <h2>about <span class="text-theme">ramble</span></h2>-->
+    <!--                            <p>欢迎来到我们的新能源汽车成本评估平台！该网站基于徐浩等人的论文《评估中国公交车和卡车的当前感拥有成本》。我们的平台提供了一个直观的工具，允许用户输入车辆类型、燃料类型、使用目的和年份等信息，来查询详细的拥有成本数据。数据包括燃料消耗率、燃料价格、税费和保险等，并根据乐观、中性和悲观三种情景进行预测。该平台旨在帮助用户更好地了解和评估新能源汽车的经济可行性，支持更明智的购车决策。</p>-->
+    <!--                        </div>-->
+    <!--                        <div class="about__sig">-->
+    <!--                            <img src="images/others/about/2.png" alt="images">-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">-->
+    <!--                    <div class="about__images">-->
+    <!--                        <img src="images/others/about/1.png" alt="about images">-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
+        <!-- End About Area -->
+    <!--</div>-->
+    <!-- End Body main wrapper -->
+
+    <!--End of Registration Form-->
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+    <!-- jquery latest version -->
+    <!--<script src="js/vendor/jquery-1.12.0.min.js"></script>-->
+    <!-- Bootstrap framework js -->
+    <!--<script src="js/bootstrap.min.js"></script>-->
+    <!-- All js plugins included in this file. -->
+    <!--<script src="js/plugins.js"></script>-->
+    <!--<script src="js/slick.min.js"></script>-->
+    <!-- Waypoints.min.js. -->
+    <!--<script src="js/waypoints.min.js"></script>-->
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <!--<script src="js/main.js"></script>-->
