@@ -1,0 +1,629 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ramble // HTML Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     引入所有必要的CSS文件 
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="newstyle.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <style>
+        .slider__inner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1.5)), url('images/bg/2.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+        .slider__inner {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+        .bradcaump__inner {
+            margin-top: -80px; /* 将 RESULT 向上移动 */
+        }
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            font-size: 24px; /* 字体稍微比 RESULT 小 */
+            color: white; /* 白色 */
+            text-align: center;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .scroll-down:hover {
+            color: #1e3a8a; /* 深蓝色 */
+            transform: scale(1.1); /* 放大效果 */
+        }
+        .scroll-down .arrow {
+            font-size: 32px; /* 向下箭头的字体大小 */
+            display: block;
+            margin-bottom: 5px;
+            transform: rotate(90deg); /* 旋转为大于号形状 */
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .table-container {
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+        .chart-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 40px; /* 图表间距 */
+            height: 400px; /* 设置图表高度 */
+        }
+        #chartSelector {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper fixed-newslatter">
+        <header id="header" class="header">
+            <div id="sticky-header-with-topbar" class="container-fluid hidden-xs sticky__header">
+                <div class="row">
+                    <div class="col-md-2 col-lg-2 col-sm-12">
+                        <div class="logo">
+                            <a href="index.html"><img src="images/logo/ramble.png" alt="logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-lg-8">
+                        <div class="header__bottom">
+                            <div class="mainmenu__area">
+                                <nav class="mainmenu__nav">
+                                    <ul class="main__menu">
+                                        <li class="drop"><a href="index.html">home</a></li>
+                                        <li><a href="about-us.html">about</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="slider__inner">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">RESULT</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-down">
+                <div class="arrow">></div>
+                Scroll down to see more
+            </div>
+        </div>
+
+        <section class="htc__about__area bg-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 content">
+                        <div id="result4" class="table-container"></div>
+                        <div id="result8" class="table-container"></div>
+                        <div id="linebarChart" class="chart-container" style="width: 600px; height: 400px;"></div>
+                         Data Selection Dropdown 
+                        <select id="chartSelector">
+                            <option value="All">Total Cost</option>
+                            <option value="Total_Ownership_Cost">Total Ownership Cost (non-discounted)</option>
+                            <option value="Vehicle_Principal_Payment">Vehicle Principal Payment</option>
+                            <option value="Interest_Payment">Interest Payment</option>
+                            <option value="Insurance_Total">Insurance Total</option>
+                            <option value="Energy_Cost">Energy Cost</option>
+                            <option value="Year_Vehicle_Maintenance_Cost">Year Vehicle Maintenance Cost</option>
+                            <option value="Vehicle_Repair_Cost">Vehicle Repair Cost</option>
+                            <option value="Tax">Tax</option>
+                            <option value="Fees">Fees</option>
+                        </select>
+
+                         Chart Container 
+                        <div id="chartContainer" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        let chart = null;
+
+        function fetchData(chartType) {
+            $.ajax({
+                url: 'answer.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#result4').html(
+      response.Energy_CostData1);
+                    $('#result8').html(
+      response.Infrastructure_DataData);
+
+                    var ages = response.Select_Relative_Repair_Cost_FactorchartData.map(function(item) { return item.Age; });
+                    var factors = response.Select_Relative_Repair_Cost_FactorchartData.map(function(item) { return item.Select_Relative_Repair_Cost_Factor; });
+          
+                    var linebarChart = echarts.init(document.getElementById('linebarChart'));
+                    var linebarOption = {
+                        title: {
+                            text: 'Repair Cost Factors by Age0'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ages,
+                            axisLabel: {
+                                rotate: 45, // 旋转标签以避免重叠
+                                interval: 0
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: 'Repair Cost Factor'
+                        },
+                        series: [{
+                            name: 'Repair Cost Factor',
+                            type: 'line',
+                            data: factors,
+                            itemStyle: {
+                                color: '#1e3a8a'
+                            },
+                            emphasis: {
+                                itemStyle: {
+                                    color: '#ff6347'
+                                }
+                            }
+                        },{
+                            name: 'Repair Cost Factor',
+                            type: 'bar',
+                            data: factors,
+                            itemStyle: {
+                                color: '#1e3a8a'
+                            },
+                            emphasis: {
+                                itemStyle: {
+                                    color: '#ff6347'
+                                }
+                            }
+                        }]
+                    };
+                    linebarChart.setOption(linebarOption);
+
+
+                    let data = response[chartType + 'Data'];
+                    if (!data) return;
+
+                    let xAxisLabel = chartType === 'Energy_Cost' ? 'Age(Year)' : 'Year';
+                    let yAxisLabel = chartType.replace('_', ' ') + ' (CNY)';
+                    let years = data.map(d => d.Year || d.Age);
+                    let values = data.map(d => d[chartType]);
+                    
+                    // 对 years 和 values 进行排序，确保横轴从 0 到 15
+                    let combinedData = years.map((year, index) => ({ year, value: values[index] }));
+                    combinedData.sort((a, b) => a.year - b.year);
+
+                    years = combinedData.map(d => d.year);
+                    values = combinedData.map(d => d.value);
+            
+                    if (chart) {
+                        chart.dispose();
+                    }
+
+                    const chartContainer = document.getElementById('chartContainer');
+                    chart = echarts.init(chartContainer);
+
+                    const option = {
+                        title: {
+                            text: chartType.replace('_', ' ') + ' by ' + xAxisLabel,
+                            left: 'center',
+                            textStyle: {
+                                fontSize: 16,
+                                fontWeight: 'normal'
+                            }
+                            
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            },
+                            formatter: function(params) {
+                                let tooltip = params[0].name === '1' ? 'First Year' : params[0].name + ' Year';
+                                params.forEach(param => {
+                                    tooltip += `<br>${param.seriesName}: ${Math.floor(param.value).toLocaleString()} CNY`;
+                                });
+                                return tooltip;
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: years,
+                            axisLabel: {
+                                rotate: 45
+                            },
+                            name: xAxisLabel,
+                            nameTextStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold'
+                            },
+                            nameGap: 30
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: chartType.replace('_', ' '),
+                            nameTextStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                padding: [0, 0, 0, 40],
+                            },
+                            axisLabel: {
+                                formatter: '{value} CNY'
+                            }
+                        },
+                        series: [{
+                            name: chartType.replace('_', ' '),
+                            type: 'bar',
+                            data: values,
+                            itemStyle: {
+                                color: '#4e73df',
+                                emphasis: {
+                                    color: '#2e59d9'
+                                }
+                            }
+                        }]
+                    };
+
+                    chart.setOption(option);
+                }
+            });
+        }
+
+
+        function renderTotalOwnershipChart() {
+            $.ajax({
+                url: 'answer.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    const chartTypes = [
+                        'Vehicle_Principal_Payment',
+                        'Interest_Payment',
+                        'Insurance_Total',
+                        'Energy_Cost',
+                        'Year_Vehicle_Maintenance_Cost',
+                        'Vehicle_Repair_Cost',
+                        'Tax',
+                        'Fees'
+                    ];
+
+                    const totalOwnershipData = {};
+                    const seriesData = [];
+
+                    chartTypes.forEach(chartType => {
+                        const data = response[chartType + 'Data'];
+                        if (data) {
+                            data.forEach(item => {
+                                const year = item.Year || item.Age;
+                                if (!totalOwnershipData[year]) {
+                                    totalOwnershipData[year] = { total: 0 };
+                                }
+                                if (!totalOwnershipData[year][chartType]) {
+                                    totalOwnershipData[year][chartType] = 0;
+                                }
+                                totalOwnershipData[year][chartType] += item[chartType];
+                                totalOwnershipData[year].total = (totalOwnershipData[year].total || 0) + item[chartType];
+                            });
+                        }
+                    });
+
+                    const years = Object.keys(totalOwnershipData).sort((a, b) => a - b);
+
+                    const legend = [
+                        'Vehicle ',
+                        'Financing',
+                        'Insurance',
+                        'Fuel',
+                        'Maintenance',
+                        'Repair',
+                        'Tax',
+                        'Fees'
+                    ];
+
+                    const colors = [
+                        '#4e73df', // Vehicle Financing
+                        '#1cc88a', // Financing
+                        '#36b9cc', // Insurance
+                        '#f6c23e', // Fuel
+                        '#e74a3b', // Maintenance
+                        '#858796', // Repair
+                        '#fd7e14',// Tax
+                        '#91d32a'// Fees
+                    ];
+
+                    chartTypes.forEach((chartType, index) => {
+                        const series = {
+                            name: legend[index],
+                            type: 'bar',
+                            stack: 'total',
+                            data: years.map(year => totalOwnershipData[year][chartType] || 0),
+                            itemStyle: {
+                                color: colors[index]
+                            }
+                        };
+                        seriesData.push(series);
+                    });
+
+                    if (chart) {
+                        chart.dispose();
+                    }
+
+                    const chartContainer = document.getElementById('chartContainer');
+                    chart = echarts.init(chartContainer);
+
+                    const option = {
+                        title: {
+                            text: 'Total Ownership Cost (non-discounted)',
+                            left: 'center',
+                            textStyle: {
+                                fontSize: 16,
+                                fontWeight: 'normal'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            },
+                            formatter: function(params) {
+                                let tooltip = `${params[0].name}<br>`;
+                                params.forEach(param => {
+                                    tooltip += `${param.seriesName}: ${param.value} CNY<br>`;
+                                });
+                                return tooltip;
+                            }
+                        },
+                        legend: {
+                            data: legend,
+                            bottom: 10
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: years,
+                            axisLabel: {
+                                rotate: 45
+                            },
+                            name: 'Year',
+                            nameTextStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold'
+                            },
+                            nameGap: 30 // 使横坐标说明更往下
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: 'Total Ownership Cost (CNY)',
+                            nameTextStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                padding: [0, 0, 0, 40], // 防止与坐标轴重叠
+                            },
+                            axisLabel: {
+                                formatter: '{value} CNY'
+                            }
+                        },
+                        series: seriesData,
+                        emphasis: {
+                            focus: 'series'
+                        }
+                    };
+
+                    chart.setOption(option);
+                }
+            });
+        }
+        
+        function renderAllChart() {
+            $.ajax({
+                url: 'answer.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    const totalCosts = response.TotalCosts;
+                    const categories = ['Vehicle', 'Financing', 'Insurance', 'Fuel', 'Maintenance', 'Repair', 'Tax', 'Fees'];
+                    const pieData = categories.map(category => ({
+                        name: category,
+                        value: totalCosts[category]
+                    }));
+                    const colors = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796', '#fd7e14', '#b39ddb'];
+
+                    // Pie chart
+                    const pieChartContainer = document.createElement('div');
+                    pieChartContainer.style.width = '60%';
+                    pieChartContainer.style.height = '400px';
+                    chartContainer.appendChild(pieChartContainer);
+    
+                    const pieChart = echarts.init(pieChartContainer);
+                    const pieOption = {
+                        title: {
+                            text: 'Total Costs Breakdown',
+                            subtext: '15-Year Total',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            top: 'top'
+                        },
+                        series: [{
+                            name: 'Total Costs',
+                            type: 'pie',
+                            radius: '50%',
+                            data: pieData,
+                            itemStyle: {
+                                color: function(params) {
+                                    return colors[params.dataIndex];
+                                }
+                            },
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }]
+                    };
+                    pieChart.setOption(pieOption);
+    
+                    // Stacked single bar chart (removed)
+                    // Uncomment this section if you want to display the bar chart
+                    
+                    // Stacked single bar chart
+                    // Stacked single bar chart
+                    // Stacked single bar chart
+                    const barChartContainer = document.createElement('div');
+                    barChartContainer.style.width = '50%';
+                    barChartContainer.style.height = '400px';
+                    chartContainer.appendChild(barChartContainer);
+    
+                    const barChart = echarts.init(barChartContainer);
+                    const seriesData = categories.map((category, index) => ({
+                        name: category,
+                        type: 'bar',
+                        stack: 'total',
+                        data: [totalCosts[category]],
+                        barWidth: '30%',
+                        itemStyle: {
+                            color: colors[index]
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                color: colors[index],
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }));
+    
+                    const barOption = {
+                        title: {
+                            text: 'Total Costs Stacked Bar',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item', // 修改为 'item' 以独立显示
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '15%',
+                            right: '5%',
+                            bottom: '10%',
+                            top: '20%'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['Total Costs'],
+                            axisLabel: {
+                                rotate: 0
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: 'Cost (CNY)',
+                            axisLabel: {
+                                formatter: function(value) {
+                                    return value >= 1000 ? (value / 1000) + 'K CNY' : value + ' CNY';
+                                }
+                            }
+                        },
+                        series: seriesData
+                    };
+                    barChart.setOption(barOption);
+                    }
+                });
+            }
+        
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        
+        // Update chart based on dropdown selection        
+        $('#chartSelector').change(function() {
+            const selectedValue = $(this).val();
+            $('#chartContainer').empty(); 
+            if (selectedValue === 'Total_Ownership_Cost') {
+                renderTotalOwnershipChart();
+            } else if (selectedValue === 'All') {
+                renderAllChart();
+                
+            }else {
+                fetchData(selectedValue);
+            }
+        });
+        $('#chartSelector').val('All').change();        
+
+
+
+
+
+        
+        $('.scroll-down').click(function() {
+            $(this).css('color', '#1e3a8a'); // 变蓝色突出显示
+            $('html, body').animate({
+                scrollTop: $('#chartSelector').offset().top
+            }, 800); // 平滑滚动
+        });
+    });
+    </script>
+</body>
+</html>
